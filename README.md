@@ -35,6 +35,25 @@ SECRET=sua-chave-secreta-para-o-JWT
 - `POST /auth/register`: Cadastra um novo usuário na aplicação.
 - `GET /user/:id`: Retorna informações de um usuário específico.
 
+## Estrutura do projeto
+
+O projeto segue a seguinte estrutura de diretórios:
+
+```
+|-- src/
+|   |-- controllers/
+|   |-- middlewares/
+|   |-- middlewares/
+|   |-- models/
+|   |-- routes/
+|-- .env
+|-- .gitignore
+|-- app.js
+|-- package.json
+|-- README.md
+|-- ...
+```
+
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir um pull request ou reportar problemas.
