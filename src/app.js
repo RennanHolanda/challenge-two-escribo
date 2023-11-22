@@ -7,7 +7,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const requestRouter = require("./src/routes/RequestRouter");
+const requestRouter = require("./routes/RequestRouter");
 
 app.use(requestRouter);
 
