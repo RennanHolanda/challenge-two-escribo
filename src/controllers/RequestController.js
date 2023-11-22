@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const RequestController = {
   index: (req, res) => {
@@ -10,29 +11,36 @@ const RequestController = {
     }
   },
 
+  user: async (req, res) => {
+    const id = req.params.id;
+
+    const user = await User.findById(id, "-password");
+
+    if (!user) {
+      return res.status(404).json({ msg: "Usuário não encontrado" });
+    }
+    function formatDate(date) {
+      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+      return new Date(date).toLocaleDateString("pt-BR", options);
+    }
+
+    const formattedUser = {
+      id: user.id,
+      name: user.name,
+      data_criacao: formatDate(user.createdAt),
+      data_atualizacao: formatDate(user.updatedAt),
+      ultimo_login: formatDate(user.lastLogin)
+    };
+
+    res.status(200).json({ user: formattedUser });
+  },
+
   register: async (req, res) => {
-    const { name, email, password, phone_number, ddd, confirmPassword } =
+    const { name, email, password, phone_number, ddd} =
       req.body;
-
-    if (!name) {
-      return res.status(422).json({ msg: "O nome é obrigatório!" });
-    }
-    if (!email) {
-      return res.status(422).json({ msg: "O e-mail é obrigatório!" });
-    }
-    if (!password) {
-      return res.status(422).json({ msg: "A senha é obrigatório!" });
-    }
-    if (!ddd) {
-      return res.status(422).json({ msg: "è preciso informar o DDD!" });
-    }
-    if (!phone_number) {
-      return res.status(422).json({ msg: "Insira seu número de telefone!" });
-    }
-
-    if (password !== confirmPassword) {
-      return res.status(422).json({ msg: "As senhas não conferem!" });
-    }
+      if (!name || !email || !password || !ddd || !phone_number) {
+        return res.status(422).json({ msg: "Por favor, preencha todos os campos corretamente!" });
+      }
 
     const userExists = await User.findOne({ email: email });
 
@@ -61,6 +69,7 @@ const RequestController = {
       });
     }
   },
+
   login: async (req, res) => {
     const { email, password } = req.body;
 
@@ -83,15 +92,27 @@ const RequestController = {
       return res.status(422).json({ msg: "Senha inválida" });
     }
 
-    // try {
-        
-    //     const secret = process.env.SECRET
-    // } catch (error) {
-    //     console.log(error);
-    //   res.status(500).json({
-    //     msg: "Aconteceu um erro no servidor, tente novamente mais tarde!",
-    //   });
-    // }
+    user.lastLogin = new Date();
+    await user.save();
+
+    try {
+      const secret = process.env.SECRET;
+
+      const token = jwt.sign(
+        {
+          id: user._id,
+        },
+        secret
+      );
+      res
+        .status(200)
+        .json({ msg: "Autenticação realizada com sucesso", token });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        msg: "Aconteceu um erro no servidor, tente novamente mais tarde!",
+      });
+    }
   },
 };
 

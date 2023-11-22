@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 
 const app = express();
 
@@ -17,7 +16,9 @@ const dbUser = process.env.DB_USER;
 const dbPasswoard = process.env.DB_PASS;
 
 mongoose
-  .connect(`mongodb+srv://${dbUser}:${dbPasswoard}@cluster0.gjshlpj.mongodb.net/`)
+  .connect(
+    `mongodb+srv://${dbUser}:${dbPasswoard}@cluster0.gjshlpj.mongodb.net/`
+  )
   .then(() => {
     app.listen(port, () => {
       console.log(`connected to the bank`);

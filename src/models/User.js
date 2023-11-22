@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -9,24 +9,28 @@ const userSchema = new Schema({
   ddd: Number,
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
+  lastLogin: {
+    type: Date,
+    default: null,
+  },
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre("save", function (next) {
   this.updatedAt = new Date();
   next();
 });
 
-userSchema.pre('findOneAndUpdate', function(next) {
+userSchema.pre("findOneAndUpdate", function (next) {
   this._update.updatedAt = new Date();
   next();
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
