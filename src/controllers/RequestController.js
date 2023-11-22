@@ -3,13 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const RequestController = {
-  index: (req, res) => {
-    try {
-      return res.send("Seja bem vindo!");
-    } catch (error) {
-      console.log(error);
-    }
-  },
 
   user: async (req, res) => {
     const id = req.params.id;
