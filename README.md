@@ -25,7 +25,7 @@ SECRET=sua-chave-secreta-para-o-JWT
 
 ## Uso
 
-1. Inicie o servidor: `npm start`
+1. Inicie o servidor: `npm rum start`
 2. Acesse a aplicação no seu navegador ou via API.
 
 ## Endpoints/API
@@ -35,26 +35,7 @@ SECRET=sua-chave-secreta-para-o-JWT
 - `POST /auth/register`: Cadastra um novo usuário na aplicação.
 - `GET /user/:id`: Retorna informações de um usuário específico.
 
-## Estrutura do Projeto
+## Contribuição
 
-Explicação da estrutura de pastas e arquivos do projeto.
-
-challenge-two-escribo/
-│
-├── controllers/
-│ └── ... # Arquivos de controle da lógica da aplicação
-├── middlewares/
-│ └── ... # Arquivos de verificação de autenticação da aplicação
-│
-├── models/
-│ └── ... # Esquemas e modelos do Mongoose
-│
-├── routes/
-│ └── ... # Definição das rotas da API
-│
-├── .env.sample
-├── .gitignore
-├── package.json
-├── app.js
-└── README.md
+Contribuições são bem-vindas! Sinta-se à vontade para abrir um pull request ou reportar problemas.
 
