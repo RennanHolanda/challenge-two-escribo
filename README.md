@@ -18,11 +18,12 @@ Descrição curta do que a aplicação faz.
 
 Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
 
+```
 PORT=3000
 DB_USER=seu-usuario-dobanco
 DB_PASS=sua-senha-de-acesso-do-banco
 SECRET=sua-chave-secreta-para-o-JWT
-
+```
 ## Uso
 
 1. Inicie o servidor: `npm rum start`
